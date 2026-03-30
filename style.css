@@ -1,0 +1,282 @@
+/* =========================================
+   1. VARIABLES Y RESETEO (Fundación)
+   ========================================= */
+:root {
+    --bg-dark: #050509; /* Un negro más profundo para que el neón resalte */
+    --bg-card: #0c0c12;
+    --text-main: #ffffff;
+    --text-muted: #8b949e;
+    
+    /* Paleta Neon */
+    --neon-cyan: #00f2ff;
+    --neon-purple: #bc13fe;
+    
+    /* Efectos */
+    --glass: rgba(255, 255, 255, 0.03);
+    --border-glass: rgba(255, 255, 255, 0.08);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    background-color: var(--bg-dark);
+}
+
+body {
+    overflow-x: hidden; /* Evita scrolls raros por animaciones */
+}
+
+/* =========================================
+   2. UTILIDADES Y ANIMACIONES GLOBAL
+   ========================================= */
+span {
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0px) rotate(0deg); }
+    50% { transform: translate(10px, -15px) rotate(1deg); }
+    100% { transform: translate(0, 0px) rotate(0deg); }
+}
+
+@keyframes pulse-cyan {
+    0% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 242, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0); }
+}
+
+/* =========================================
+   3. COMPONENTES: BOTONES NEON (NUEVO)
+   ========================================= */
+[class^="btn-"] {
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Botón Principal con Brillo Neon */
+.btn-neon-main {
+    padding: 12px 30px;
+    background: transparent;
+    border: 2px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    border-radius: 50px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    /* Microinteracción de pulso sutil constante */
+    animation: pulse-cyan 2s infinite;
+}
+
+.btn-neon-main:hover {
+    background: var(--neon-cyan);
+    color: var(--bg-dark);
+    box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
+    transform: scale(1.05);
+}
+
+/* Botón Outline sutil */
+.btn-outline {
+    padding: 12px 30px;
+    color: var(--text-muted);
+    border: 1px solid var(--border-glass);
+    border-radius: 50px;
+    margin-left: 15px;
+}
+
+.btn-outline:hover {
+    border-color: var(--text-main);
+    color: var(--text-main);
+    background: rgba(255,255,255,0.05);
+}
+
+/* Botón Pequeño para Nav */
+.btn-neon-small {
+    padding: 8px 20px;
+    border: 1px solid var(--neon-purple);
+    color: var(--neon-purple);
+    border-radius: 50px;
+    font-size: 0.8rem;
+}
+
+.btn-neon-small:hover {
+    background: var(--neon-purple);
+    color: white;
+    box-shadow: 0 0 15px rgba(188, 19, 254, 0.5);
+}
+
+/* =========================================
+   4. LAYOUT PRINCIPAL (NAV & HERO)
+   ========================================= */
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 10%;
+    background: rgba(5, 5, 9, 0.8);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-glass);
+}
+
+.logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
+
+.nav-links { list-style: none; display: flex; align-items: center; gap: 30px; }
+.nav-links a:not([class^="btn-"]) {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    transition: var(--transition-smooth);
+}
+.nav-links a:not([class^="btn-"]):hover { color: var(--text-main); }
+
+/* Hero Section (CORREGIDO LAYOUT) */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10%;
+    padding-top: 80px; /* Offset de la navbar */
+}
+
+.hero-container {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; /* Texto más ancho que el visual */
+    gap: 50px;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.hero-content {
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+}
+
+.hero-content p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    max-width: 500px;
+    line-height: 1.6;
+}
+
+/* =========================================
+   5. PANEL FLOTANTE NEON (CORREGIDO)
+   ========================================= */
+.hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    animation: fadeInUp 1s ease-out 0.3s forwards; /* Ligeramente retrasado */
+    opacity: 0; /* Empieza invisible */
+}
+
+.floating-panel {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(12, 12, 18, 0.6); /* Glassmorphism oscuro */
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    
+    /* Bordes de neón realistas con sombras múltiples */
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    box-shadow: 
+        0 0 15px rgba(0, 242, 255, 0.1),
+        inset 0 0 10px rgba(0, 242, 255, 0.05);
+        
+    overflow: hidden;
+    animation: float 6s ease-in-out infinite; /* Animación flotante suave */
+}
+
+/* Decoración estilo ventana de terminal */
+.panel-header {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--border-glass);
+    display: flex;
+    gap: 6px;
+}
+
+.dot { width: 10px; height: 10px; border-radius: 50%; opacity: 0.5; }
+.red { background-color: #ff5f56; }
+.yellow { background-color: #ffbd2e; }
+.green { background-color: #27c93f; }
+
+.panel-body {
+    padding: 20px;
+    font-family: 'Courier New', Courier, monospace; /* Fuente de código */
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+.panel-body code { display: block; }
+.cyan { color: var(--neon-cyan); }
+.purple { color: var(--neon-purple); }
+
+/* =========================================
+  6. SECCIÓN FEATURES (Estilo previo)
+   ========================================= */
+.grid-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 100px 10%;
+    background-color: var(--bg-card);
+}
+
+.card {
+    background: var(--glass);
+    border: 1px solid var(--border-glass);
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Microinteracción avanzada en hover de tarjeta */
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--neon-purple);
+    box-shadow: 0 10px 40px rgba(188, 19, 254, 0.15);
+}
+
+.card .icon { font-size: 2rem; margin-bottom: 20px; display: block; }
+.card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+.card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
